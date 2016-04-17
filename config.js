@@ -3,6 +3,7 @@
  */
 
 var log = require('winston');
+var CloudWatchTransport = require('winston-aws-cloudwatch')
 
 var settings = {
   // Port that the web server will bind to
@@ -31,6 +32,38 @@ var settings = {
   codever: '4.12'
 };
 
+
+// Now that we've dropped root privileges (if requested), setup file logging
+// NOTE: Any messages logged before this will go to the console only
+
+  ///log.add(log.transports.File, { level: 'debug', filename: __dirname + '/logs/echoprint.log' }); 
+
+  var cwConfig = {
+    logGroupName: 'echoprint-logs', // REQUIRED
+    logStreamName: 'error', // REQUIRED
+    createLogGroup: true,
+    createLogStream: true,
+    awsConfig: {
+      accessKeyId: 'AKIAJ5FWGDRK37FTDLEQ',
+      secretAccessKey: '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',
+      region: 'N.Virginia'
+    },
+    formatLogItem: function (item) {
+      return item.level + ': ' + item.message + ' ' + JSON.stringify(item.meta)
+    }
+  };
+
+  var cwt = new CloudWatchTransport(cwConfig);
+  cwt.on('error', function (error) {
+    console.error('Error logging to CloudWatch: ' + error.message)
+  });
+
+  log.add(cwt);
+
+  log.remove(log.transports.Console);
+
+
+
 // Override default settings with any local settings
 try {
   var localSettings = require('./config.local');
@@ -40,10 +73,10 @@ try {
       settings[property] = localSettings[property];
   }
   
-  log.info('Loaded settings from config.local.js. Database is ' +
+  log.error('Loaded settings from config.local.js. Database is ' +
     settings.db_database + '@' + settings.db_host);
 } catch (err) {
-  log.warn('Using default settings from config.js. Database is ' +
+  log.error('Using default settings from config.js. Database is ' +
     settings.db_database + '@' + settings.db_host);
 }
 

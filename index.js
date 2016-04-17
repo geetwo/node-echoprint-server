@@ -22,11 +22,4 @@ if (config.run_as_user) {
   }
 }
 
-// Now that we've dropped root privileges (if requested), setup file logging
-// NOTE: Any messages logged before this will go to the console only
-if (config.log_path){
-  log.add(log.transports.File, { level: config.log_level, filename: config.log_path }); 
-  log.remove(log.transports.Console);
-
-}
   
