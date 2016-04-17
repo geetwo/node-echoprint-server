@@ -3,7 +3,7 @@
  */
 
 var log = require('winston');
-var CloudWatchTransport = require('winston-aws-cloudwatch')
+var winstonSNS = require('winston-sns');
 
 var settings = {
   // Port that the web server will bind to
@@ -37,19 +37,13 @@ var settings = {
 // NOTE: Any messages logged before this will go to the console only
 
   ///log.add(log.transports.File, { level: 'debug', filename: __dirname + '/logs/echoprint.log' }); 
-  log.add(CloudWatchTransport, {
-  logGroupName: 'echoprint-logs', // REQUIRED
-  logStreamName: 'errors', // REQUIRED
-  createLogGroup: true,
-  createLogStream: true,
-  awsConfig: {
-    accessKeyId: 'AKIAJ5FWGDRK37FTDLEQ',
-    secretAccessKey: '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',
-    region: 'us-east-1'
-  },
-  formatLogItem: function (item) {
-    return item.level + ': ' + item.message + ' ' + JSON.stringify(item.meta)
-  }
+  log.add(winstonSNS, {
+  subscriber: '542031079803', // REQUIRED
+  topic_arn: 'arn:aws:sns:us-east-1:542031079803:echoprint', // REQUIRED
+  accessKeyId: 'AKIAJ5FWGDRK37FTDLEQ',
+  secretAccessKey: '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',
+  region: 'us-east-1',
+  level:'debug'
 });
 
   log.remove(log.transports.Console);
