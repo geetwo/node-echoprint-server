@@ -1,6 +1,9 @@
 {
   "name": "echoprint-server",
   "version": "0.1.0",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "mysql": "2.0.0-alpha8",
     "winston": "0.6.2",

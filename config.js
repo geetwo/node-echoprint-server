@@ -6,13 +6,14 @@ var log = require('winston');
 
 var settings = {
   // Port that the web server will bind to
-  web_port: 37760,
+  web_port: 8080,
   
   // Database settings
-  db_user: 'root',
-  db_pass: '',
-  db_database: 'echoprint',
-  db_host: 'localhost',
+  db_user: 'echoprintdb',
+  db_pass: 'ech2ech2',
+  db_database: 'echoprintdb',
+  db_host: 'aa18ws93tmlyzm3.cluajokydo8o.us-east-1.rds.amazonaws.com',
+  db_port: '3306',
   
   // Set this to a system username to drop root privileges
   run_as_user: '',

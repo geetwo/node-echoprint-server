@@ -24,7 +24,7 @@ exports.disconnect = disconnect;
 var client = mysql.createConnection({
   user: config.db_user,
   password: config.db_pass,
-  database: config.db_database,
+  port: config.db_port,
   host: config.db_host
 });
 client.connect();

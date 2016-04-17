@@ -10,8 +10,10 @@ var config = require('../config');
 exports.query = function(req, res) {
   var url = urlParser.parse(req.url, true);
   var code = url.query.code;
-  if (!code)
+  if (!code){
+    log.error('Missing code');
     return server.respond(req, res, 500, { error: 'Missing code' });
+  }
   
   var codeVer = url.query.version;
   if (codeVer != config.codever)
