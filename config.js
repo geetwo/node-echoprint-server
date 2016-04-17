@@ -37,28 +37,20 @@ var settings = {
 // NOTE: Any messages logged before this will go to the console only
 
   ///log.add(log.transports.File, { level: 'debug', filename: __dirname + '/logs/echoprint.log' }); 
-
-  var cwConfig = {
-    logGroupName: 'echoprint-logs', // REQUIRED
-    logStreamName: 'error', // REQUIRED
-    createLogGroup: true,
-    createLogStream: true,
-    awsConfig: {
-      accessKeyId: 'AKIAJ5FWGDRK37FTDLEQ',
-      secretAccessKey: '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',
-      region: 'N.Virginia'
-    },
-    formatLogItem: function (item) {
-      return item.level + ': ' + item.message + ' ' + JSON.stringify(item.meta)
-    }
-  };
-
-  var cwt = new CloudWatchTransport(cwConfig);
-  cwt.on('error', function (error) {
-    console.error('Error logging to CloudWatch: ' + error.message)
-  });
-
-  log.add(cwt);
+  log.add(CloudWatchTransport, {
+  logGroupName: 'echoprint-logs', // REQUIRED
+  logStreamName: 'errors', // REQUIRED
+  createLogGroup: true,
+  createLogStream: true,
+  awsConfig: {
+    accessKeyId: 'AKIAJ5FWGDRK37FTDLEQ',
+    secretAccessKey: '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',
+    region: 'us-east-1'
+  },
+  formatLogItem: function (item) {
+    return item.level + ': ' + item.message + ' ' + JSON.stringify(item.meta)
+  }
+});
 
   log.remove(log.transports.Console);
 
