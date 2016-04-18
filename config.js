@@ -7,7 +7,7 @@ var winstonSNS = require('winston-sns');
 
 var settings = {
   // Port that the web server will bind to
-  web_port: 37760,
+  web_port: 8081,
   
   // Database settings
   db_user: 'echoprintdb',
