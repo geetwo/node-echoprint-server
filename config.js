@@ -40,19 +40,6 @@ var settings = {
   //log.remove(log.transports.Console);
 
 // Override default settings with any local settings
-try {
-  var localSettings = require('./config.local');
-  
-  for (var property in localSettings) {
-    if (localSettings.hasOwnProperty(property))
-      settings[property] = localSettings[property];
-  }
-  
-  log.error('Loaded settings from config.local.js. Database is ' +
-    settings.db_database + '@' + settings.db_host);
-} catch (err) {
-  log.error('Using default settings from config.js. Database is ' +
-    settings.db_database + '@' + settings.db_host);
-}
+
 
 module.exports = settings;
