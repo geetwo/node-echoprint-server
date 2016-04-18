@@ -12,7 +12,7 @@ var settings = {
   // Database settings
   db_user: 'echoprintdb',
   db_pass: 'ech2ech2',
-  db_database: 'echoprintdb',
+  db_database: 'ebdb',
   db_host: 'aa18ws93tmlyzm3.cluajokydo8o.us-east-1.rds.amazonaws.com',
   db_port: '3306',
   
