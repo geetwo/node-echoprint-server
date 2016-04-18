@@ -53,7 +53,6 @@ exports.ingest = function(req, res) {
   var track = req.body.track;
   var artist = req.body.artist;
 
-  log.error(parseInt(length, 10)+1);
   
   if (!code)
     return server.respond(req, res, 500, { error: 'Missing "code" field' });
