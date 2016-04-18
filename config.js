@@ -36,19 +36,8 @@ var settings = {
 // Now that we've dropped root privileges (if requested), setup file logging
 // NOTE: Any messages logged before this will go to the console only
 
-  ///log.add(log.transports.File, { level: 'debug', filename: __dirname + '/logs/echoprint.log' }); 
-  log.add(winstonSNS, {
-  subscriber: '542031079803', // REQUIRED
-  topic_arn: 'arn:aws:sns:us-east-1:542031079803:echoprint', // REQUIRED
-  accessKeyId: 'AKIAJ5FWGDRK37FTDLEQ',
-  secretAccessKey: '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',
-  region: 'us-east-1',
-  level:'debug'
-});
-
-  log.remove(log.transports.Console);
-
-
+  //log.add(log.transports.File, { level: 'debug', filename: __dirname + '/logs/echoprint.log' }); 
+  //log.remove(log.transports.Console);
 
 // Override default settings with any local settings
 try {
