@@ -212,6 +212,7 @@ function getTrackMetadata(match, allMatches, status, callback) {
       return callback('Track ' + match.track_id + ' went missing', null);
     
     match.track = track.name;
+    match.parse_id = track.parse_id;
     match.artist = track.artist_name;
     match.artist_id = track.artist_id;
     match.length = track.length;
