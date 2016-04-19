@@ -67,7 +67,7 @@ exports.ingest = function(req, res) {
     return server.respond(req, res, 500, { error: 'Missing "track" field' });
   if (!artist)
     return server.respond(req, res, 500, { error: 'Missing "artist" field' });
-  
+
   
   fingerprinter.decodeCodeString(code, function(err, fp) {
     if (err || !fp.codes.length) {
@@ -79,7 +79,7 @@ exports.ingest = function(req, res) {
     fp.track = track;
     fp.length = length;
     fp.artist = artist;
-    fp.parse = parse;
+    fp.parse = parse_id;
     
     fingerprinter.ingest(fp, function(err, result) {
       if (err) {
