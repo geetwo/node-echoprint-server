@@ -52,6 +52,7 @@ exports.ingest = function(req, res) {
   var length = parseInt(req.body.length, 10);
   var track = req.body.track;
   var artist = req.body.artist;
+  var parse_id = req.body.parse;
 
   
   if (!code)
@@ -67,6 +68,7 @@ exports.ingest = function(req, res) {
   if (!artist)
     return server.respond(req, res, 500, { error: 'Missing "artist" field' });
   
+  
   fingerprinter.decodeCodeString(code, function(err, fp) {
     if (err || !fp.codes.length) {
       log.error('Failed to decode codes for ingest: ' + err);
@@ -77,6 +79,7 @@ exports.ingest = function(req, res) {
     fp.track = track;
     fp.length = length;
     fp.artist = artist;
+    fp.parse = parse;
     
     fingerprinter.ingest(fp, function(err, result) {
       if (err) {
