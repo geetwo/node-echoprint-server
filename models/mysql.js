@@ -151,14 +151,14 @@ function addTrack(artistID, fp, callback) {
     return callback('Attempted to add track with invalid duration "' + length + '"', null);
   if (!fp.codever)
     return callback ('Attempted to add track with missing code version (codever field)', null);
+    
+    var parseId = "";
 
-  var parseId ="";
+    if(fp.parse)
+      parseId = fp.parse;
 
-  if(fp.parse)
-    parseId = fp.parse;
-  
   var sql = 'INSERT INTO tracks ' +
-    '(codever,name,artist_id,length,import_date) ' +
+    '(parse_id,codever,name,artist_id,length,import_date) ' +
     'VALUES (?,?,?,?,?,NOW())';
   client.query(sql, [parseId, fp.codever, fp.track, artistID, length],
     function(err, info)
